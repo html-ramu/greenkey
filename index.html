@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GreenKey — Background Remover</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <span class="logo-icon">&#9632;</span>
+      <h1 class="logo-title">GreenKey</h1>
+      <span class="logo-sub">Background Remover v2</span>
+    </div>
+    <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+      <span id="themeIcon">☀️</span>
+    </button>
+  </header>
+
+  <!-- Main Layout -->
+  <main class="main">
+
+    <!-- Left Panel: Controls -->
+    <aside class="panel controls-panel">
+      <h2 class="panel-title">Controls</h2>
+
+      <!-- Upload -->
+      <div class="control-group">
+        <label class="control-label">Upload Image</label>
+        <label class="upload-btn" for="imageUpload">
+          <span>&#8593; Choose File</span>
+          <input type="file" id="imageUpload" accept=".jpg,.jpeg,.png,.svg" hidden />
+        </label>
+        <p class="file-hint" id="fileName">No file selected</p>
+      </div>
+
+      <!-- Key Color -->
+      <div class="control-group">
+        <label class="control-label">Key Color</label>
+        <div class="color-row">
+          <input type="color" id="keyColor" value="#00ff00" class="color-picker" />
+          <span class="color-value" id="colorHex">#00ff00</span>
+        </div>
+        <p class="hint">Tip: Use the eyedropper-style picker to match your actual background color.</p>
+      </div>
+
+      <!-- Tolerance Slider -->
+      <div class="control-group">
+        <label class="control-label">
+          Tolerance
+          <span class="badge" id="toleranceVal">50</span>
+        </label>
+        <input type="range" id="tolerance" min="0" max="100" value="50" class="slider" />
+        <p class="hint">Higher = removes more shades of the key color.</p>
+      </div>
+
+      <!-- Edge Smoothness Slider -->
+      <div class="control-group">
+        <label class="control-label">
+          Edge Smoothness
+          <span class="badge" id="smoothnessVal">15</span>
+        </label>
+        <input type="range" id="smoothness" min="0" max="60" value="15" class="slider" />
+        <p class="hint">Higher = softer, more feathered edges.</p>
+      </div>
+
+      <!-- Divider -->
+      <div class="divider"></div>
+
+      <!-- Spill Suppression Toggle -->
+      <div class="control-group toggle-group">
+        <div class="toggle-info">
+          <span class="toggle-label">Spill Suppression</span>
+          <span class="toggle-desc">Removes green fringe on edges</span>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="spillToggle" checked />
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+
+      <!-- Skin Tone Protection Toggle -->
+      <div class="control-group toggle-group">
+        <div class="toggle-info">
+          <span class="toggle-label">Skin Tone Protection</span>
+          <span class="toggle-desc">Prevents removing skin-colored pixels</span>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="skinToggle" checked />
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Apply Button -->
+      <button class="btn btn-primary" id="applyBtn" disabled>
+        &#9654; Apply Green Screen
+      </button>
+
+      <!-- Reset Button -->
+      <button class="btn btn-secondary" id="resetBtn" disabled>
+        &#8635; Reset Image
+      </button>
+
+      <!-- Download Button -->
+      <button class="btn btn-download" id="downloadBtn" disabled>
+        &#8595; Download PNG
+      </button>
+    </aside>
+
+    <!-- Right Panel: Canvas Preview -->
+    <section class="panel preview-panel">
+      <div class="preview-header">
+        <h2 class="panel-title">Preview</h2>
+        <div class="canvas-tabs">
+          <button class="tab active" id="tabOriginal">Original</button>
+          <button class="tab" id="tabResult">Result</button>
+        </div>
+      </div>
+
+      <!-- Canvas area -->
+      <div class="canvas-wrapper" id="canvasWrapper">
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">&#128444;</div>
+          <p>Upload an image to get started</p>
+        </div>
+        <canvas id="originalCanvas" style="display:none;"></canvas>
+        <canvas id="resultCanvas"   style="display:none;"></canvas>
+      </div>
+
+      <!-- Status bar -->
+      <div class="status-bar">
+        <span id="statusText">Ready</span>
+        <span id="imageDimensions"></span>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
